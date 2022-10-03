@@ -13,3 +13,9 @@ type ToDoItem struct {
 func (ToDoItem) TableName() string {
 	return "todo_items"
 }
+
+type DataPaging struct {
+	Page  int   `json:"page" gorm:"column:page"`
+	Limit int   `json:"limit" gorm:"column:limit"`
+	Total int64 `json:"total" gorm:"column:total"`
+}

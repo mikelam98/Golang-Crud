@@ -20,6 +20,7 @@ func main() {
 	v1 := router.Group("/v1")
 	{
 		v1.POST("/items", transport.HandleCreateNewItem(db))
+		v1.GET("/items", transport.HandleListItem(db))
 	}
 
 	if err := router.Run(); err != nil {
