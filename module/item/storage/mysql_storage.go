@@ -7,7 +7,5 @@ type mysqlStorage struct {
 }
 
 func NewMySQLStorage(db *gorm.DB) *mysqlStorage {
-	return &mysqlStorage{
-		db: db,
-	}
+	return &mysqlStorage{db: db}
 }
