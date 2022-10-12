@@ -7,11 +7,10 @@ import (
 
 type UpdateToDoItemStorage interface {
 	FindItem(ctx context.Context,
-		condition map[string]interface{},
-		data *todomodel.ToDoItem)
+		condition map[string]interface{}) (*todomodel.ToDoItem, error)
 	UpdateItem(ctx context.Context,
 		condition map[string]interface{},
-		dataUpdate *todomodel.ToDoItem)
+		dataUpdate *todomodel.ToDoItem) error
 }
 type updatebiz struct {
 	store UpdateToDoItemStorage
@@ -20,6 +19,16 @@ type updatebiz struct {
 func NewUpdateToDoItemStorage(store UpdateToDoItemStorage) *updatebiz {
 	return &updatebiz{store: store}
 }
-func (biz *updatebiz) UpdateItems(ctx context.Context, condition map[string]interface{}, dataUpdate *todomodel.ToDoItem) error {
+func (biz *updatebiz) UpdateItem(ctx context.Context, condition map[string]interface{}, dataUpdate *todomodel.ToDoItem) error {
 	oldItem, err := biz.store.FindItem(ctx, condition)
+	if err != nil {
+		return err
+	}
+	if oldItem.Status == "Finished" {
+		return err
+	}
+	if err := biz.store.UpdateItem(ctx, condition, dataUpdate); err != nil {
+		return err
+	}
+	return nil
 }
