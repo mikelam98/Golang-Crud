@@ -24,6 +24,7 @@ func (biz *updatebiz) UpdateItem(ctx context.Context, condition map[string]inter
 	if err != nil {
 		return err
 	}
+	// just a demo in case we dont allow update Finished item
 	if oldItem.Status == "Finished" {
 		return err
 	}

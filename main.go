@@ -23,6 +23,7 @@ func main() {
 		v1.GET("/items", transport.HandleListItem(db))
 		v1.PUT("/items/:id", transport.HandleUpdateItem(db))
 		v1.GET("/items/:id", transport.HandleFindItem(db))
+		v1.DELETE("/items/:id", transport.HandleDeleteItem(db))
 	}
 
 	if err := router.Run(); err != nil {
