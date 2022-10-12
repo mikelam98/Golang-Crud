@@ -21,6 +21,8 @@ func main() {
 	{
 		v1.POST("/items", transport.HandleCreateNewItem(db))
 		v1.GET("/items", transport.HandleListItem(db))
+		v1.PUT("/items/:id", transport.HandleUpdateItem(db))
+		v1.GET("/items/:id", transport.HandleFindItem(db))
 	}
 
 	if err := router.Run(); err != nil {
